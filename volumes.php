@@ -33,8 +33,9 @@ foreach ($instance_data as $instance_datum) {
 
 <script type="text/javascript">
 $(function() {
-	$('#vols-list li').addClass('unattached');
-	$('#vols-list li').draggable({});
+	$('#vols-list li')
+		.addClass('unattached')
+		.draggable({revert: 'invalid'});
 	$('#vols-instances-list li').droppable({
 		hoverClass: 'droppable-highlight',
 		accept: '.unattached',
@@ -49,7 +50,10 @@ $(function() {
 					$('<li></li>')
 						.html($(this).parent().html())
 						.appendTo('#vols-list')
-						.find('a.close').remove();
+						.addClass('unattached')
+						.draggable({revert: 'invalid'})
+						.find('a.close')
+						.remove();
 					$(this).parent().remove();
 					return false;
 				});
