@@ -1,7 +1,9 @@
 body {
 	padding-top: 60px;
 }
-
+pre.prettyprint {
+	padding: 20px;
+}
 /* Page: Draggable */
 .draggable {
 	border: 10px solid #ffcc00;
@@ -97,7 +99,7 @@ body {
 }
 #vols-instances-list > li {
 	list-style: none;
-	background: #ccc;
+	background: #f93;
 	padding: 10px;
 	margin: 10px;
 	border-radius: 10px;
