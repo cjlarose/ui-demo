@@ -33,14 +33,22 @@ foreach ($instance_data as $instance_datum) {
 
 <script type="text/javascript">
 $(function() {
+	$('#vols-list li').addClass('unattached');
 	$('#vols-list li').draggable({helper: 'clone'});
 	$('#vols-instances-list li').droppable({
 		hoverClass: 'droppable-highlight',
+		accept: '.unattached',
 		drop: function(event, ui) {
 			$("<li></li>")
 				.html(ui.draggable.html())
 				.appendTo($(this).find('ul'))
-				.draggable();
+				.append('<a class="close">&times;</a>')
+				.find('a.close')
+				.click(function(e) {
+					e.preventDefault();
+					$(this).parent().remove();
+					return false;
+				});
 		}
 	});
 });
