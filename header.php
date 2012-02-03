@@ -10,8 +10,8 @@ $body_class = 'page-' . $body_class;
     <meta name="description" content="">
     <meta name="author" content="">
     <!-- Le styles -->
-    <link href="bootstrap.css" rel="stylesheet">
-    <link href="style.css" rel="stylesheet">
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
     <style>
       body {
         padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
