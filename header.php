@@ -52,3 +52,4 @@ foreach ($links as $content => $location) {
     </div>
 
     <div class="container">
+	<?php ob_start(); ?>

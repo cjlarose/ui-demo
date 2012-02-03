@@ -15,7 +15,7 @@
 }
 
 #vm-killer-container {
-	
+	margin-top: 1.5em;	
 }
 #vm-killer-container > div {
 	border: 5px solid #ccc;
@@ -30,8 +30,12 @@
 #vm-killer {
 	float: right;
 	width: 30%;
+	position: relative;
 }
-#running-instances-list li {
+.droppable-highlight {
+	background-color: #66ccff;
+}
+#running-instances-list li, #instances-to-terminate li {
 	list-style: none;
 	background: #ffcc00;
 	color: #333333;
@@ -39,4 +43,14 @@
 	border-radius: 10px;
 	width: 200px;
 	margin: 10px;
+	z-index: 1;
+}
+#instances-to-terminate li {
+	background: #c00;
+	color: #fff;
+}
+#vm-killer #terminate-link {
+	position: absolute;
+	bottom: 20px;
+	right: 20px; 
 }
