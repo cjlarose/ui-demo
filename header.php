@@ -12,11 +12,12 @@ $body_class = 'page-' . $body_class;
     <!-- Le styles -->
     <link href="css/bootstrap.css" rel="stylesheet">
     <link href="js/google-code-prettify/prettify.css" rel="stylesheet">
+    <link href="css/jquery-ui.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
-<script src="js/google-code-prettify/prettify.js"></script>
-<script src="js/global.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
+    <script src="js/google-code-prettify/prettify.js"></script>
+    <script src="js/global.js"></script>
   </head>
 
   <body class="<?php echo $body_class; ?>">
@@ -35,9 +36,10 @@ $body_class = 'page-' . $body_class;
 <?php
 $links = array(
 	'Home' => '',
-	'Draggable' => 'draggable.php',
+//	'Draggable' => 'draggable.php',
 	'VM Terminator' => 'droppable.php',
-	'Volume Management' => 'volumes.php'
+	'Volume Management' => 'volumes.php',
+	'New Instance' => 'new_instance.php'
 );
 #var_dump($_SERVER['PHP_SELF']);
 foreach ($links as $content => $location) {
