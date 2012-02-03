@@ -75,6 +75,12 @@ $(function() {
 			<div id="instance-size-slider"></div>
 		</div>
 	</div>
+	<div class="control-group">
+		<label class="control-label" for="description">Description</label>
+		<div class="controls">
+			<textarea class="input-xlarge" id="description"></textarea>
+		</div>
+	</div>
 </form>
 
 <?php include 'footer.php'; ?>
