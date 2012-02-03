@@ -36,7 +36,8 @@ $body_class = 'page-' . $body_class;
 $links = array(
 	'Home' => '',
 	'Draggable' => 'draggable.php',
-	'Droppable' => 'droppable.php'
+	'VM Terminator' => 'droppable.php',
+	'Volume Management' => 'volumes.php'
 );
 #var_dump($_SERVER['PHP_SELF']);
 foreach ($links as $content => $location) {

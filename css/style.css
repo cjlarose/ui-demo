@@ -1,6 +1,8 @@
 body {
 	padding-top: 60px;
 }
+
+/* Page: Draggable */
 .draggable {
 	border: 10px solid #ffcc00;
 	float: left; 
@@ -17,6 +19,7 @@ body {
 	border-radius: 100px;
 }
 
+/* Page: VM Killer */
 #vm-killer-container {
 	margin-top: 1.5em;	
 }
@@ -36,7 +39,7 @@ body {
 	position: relative;
 }
 .droppable-highlight {
-	background-color: #66ccff;
+	background-color: #66ccff !important;
 }
 #running-instances-list li, #instances-to-terminate li {
 	list-style: none;
@@ -56,4 +59,50 @@ body {
 	position: absolute;
 	bottom: 20px;
 	right: 20px; 
+}
+
+/* Page: Volume Management */
+#vols-container {
+	margin-top: 1.5em;	
+	overflow: hidden;
+}
+#vols-container > div {
+	border: 5px solid #ccc;
+	border-radius: 5px;
+	padding: 20px;
+	min-height: 300px;
+}
+#vols-volumes {
+	float: left;
+	width: 30%;
+}
+#vols-list, .attached-volumes-list {
+	margin-left: 0;
+}
+#vols-list li, .attached-volumes-list li {
+	background: #fc0;
+	padding: 10px;
+	margin: 10px;
+	list-style: none;
+	border-radius: 10px;
+	z-index: 2;
+}
+#vols-instances {
+	float: right;
+	width: 55%;
+	position: relative;
+}
+#vols-instances-list {
+	margin-left: 0;
+}
+#vols-instances-list > li {
+	list-style: none;
+	background: #ccc;
+	padding: 10px;
+	margin: 10px;
+	border-radius: 10px;
+}
+#vols-instances .btn {
+	float: right;
+	margin-right: 10px;
 }
