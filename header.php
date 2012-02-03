@@ -12,10 +12,10 @@ $body_class = 'page-' . $body_class;
     <!-- Le styles -->
     <link href="css/bootstrap.css" rel="stylesheet">
     <link href="js/google-code-prettify/prettify.css" rel="stylesheet">
-    <link href="css/jquery-ui.css" rel="stylesheet">
+    <link href="css/ui-lightness/jquery-ui-1.8.17.custom.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
+    <script src="js/jquery-1.7.1.min.js"></script>
+    <script src="js/jquery-ui-1.8.17.custom.min.js"></script>
     <script src="js/google-code-prettify/prettify.js"></script>
     <script src="js/global.js"></script>
   </head>

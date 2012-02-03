@@ -116,3 +116,16 @@ pre.prettyprint {
 	float: right;
 	margin-right: 10px;
 }
+
+/* Page: New Instance */
+#size-info {
+	overflow: hidden;
+}
+#size-info dt, #size-info dd {
+	line-height: 17px;
+	float: left;
+}
+#size-info dd {
+	margin: 0 .5em;
+	width: 5em;
+}
