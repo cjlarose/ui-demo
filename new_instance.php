@@ -81,6 +81,9 @@ $(function() {
 			<textarea class="input-xlarge" id="description"></textarea>
 		</div>
 	</div>
+	<div class="form-actions">
+		<button type="submit" class="btn btn-primary">Launch Instance</button>
+	</div>
 </form>
 
 <?php include 'footer.php'; ?>
