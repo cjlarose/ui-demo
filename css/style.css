@@ -4,6 +4,9 @@ body {
 pre.prettyprint {
 	padding: 20px;
 }
+.container {
+	position: relative;
+}
 /* Page: Draggable */
 .draggable {
 	border: 10px solid #ffcc00;
@@ -128,4 +131,16 @@ pre.prettyprint {
 #size-info dd {
 	margin: 0 .5em;
 	width: 5em;
+}
+
+/* Page: Instances */
+#new-instance-link {
+	position: absolute;
+	top: 5px;
+	right: 0;
+}
+
+/* Page: Vertical Tabs */
+.tab-pane {
+	position: relative;
 }

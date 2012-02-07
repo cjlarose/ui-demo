@@ -17,6 +17,7 @@ $body_class = 'page-' . $body_class;
     <script src="js/jquery-1.7.1.min.js"></script>
     <script src="js/jquery-ui-1.8.17.custom.min.js"></script>
     <script src="js/google-code-prettify/prettify.js"></script>
+    <script src="js/bootstrap-tab.js"></script>
     <script src="js/global.js"></script>
   </head>
 
@@ -39,7 +40,9 @@ $links = array(
 //	'Draggable' => 'draggable.php',
 	'VM Terminator' => 'droppable.php',
 	'Volume Management' => 'volumes.php',
-	'New Instance' => 'new_instance.php'
+	'New Instance' => 'new_instance.php',
+	'Vertical Tabs' => 'vtabs.php',
+	'Instances' => 'instances.php'
 );
 #var_dump($_SERVER['PHP_SELF']);
 foreach ($links as $content => $location) {

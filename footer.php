@@ -1,5 +1,7 @@
     <?php $source = ob_get_clean(); ?>
+		<div id="content">
 <?php echo $source; ?>
+		</div>
 		<div id="source">
 			<h2>Source Code</h2>
 <pre class="prettyprint"><?php echo htmlspecialchars(trim($source)); ?></pre>
