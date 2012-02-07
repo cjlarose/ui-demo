@@ -41,8 +41,8 @@ $links = array(
 	'VM Terminator' => 'droppable.php',
 	'Volume Management' => 'volumes.php',
 	'New Instance' => 'new_instance.php',
-	'Vertical Tabs' => 'vtabs.php',
-	'Instances' => 'instances.php'
+	'Instances' => 'instances.php',
+	'Vertical Tabs' => 'vtabs.php'
 );
 #var_dump($_SERVER['PHP_SELF']);
 foreach ($links as $content => $location) {
