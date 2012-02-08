@@ -101,8 +101,10 @@ pre.prettyprint {
 	margin-left: 0;
 }
 #vols-instances-list > li {
+	background: #fff;
+	box-shadow: 0px 0px 3px 1px #ccc;
+	border: 1px solid #ccc;
 	list-style: none;
-	background: #f93;
 	padding: 10px;
 	margin: 10px;
 	border-radius: 10px;
@@ -160,4 +162,42 @@ pre.prettyprint {
 /* Page: Vertical Tabs */
 .tab-pane {
 	position: relative;
+}
+
+/* Page: Sliding Tabs */
+#slider-container {
+	overflow: hidden;
+}
+.slides {
+	width: 12000px;		
+	overflow: hidden;
+}
+.slides > div {
+	float: left;
+	width: 940px;
+	height: 600px;
+	overflow: auto;
+}
+#vols-instances-list > li:hover {
+	background: #ff0;
+}
+#view-instance {
+	overflow: hidden;
+}
+#view-instance > div {
+	width: 940px; 
+	height: 600px;
+	overflow: auto;	
+}
+#view-instance dt, #view-instance dd {
+	float: left;
+	width: 10em;
+}
+#view-instance > div > div {
+	position: relative;
+}
+.terminate-instance-button {
+	position: absolute;
+	top: 10px;
+	right: 10px;
 }
