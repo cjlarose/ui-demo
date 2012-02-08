@@ -14,9 +14,9 @@ foreach ($volume_data as $volume_datum) {
 }
 
 $instance_data = array(
-	array('i-46190768', 'Image 1', 'm1.small'),
+	array('i-46190768', 'Image 1', 'm1.small', array(1)),
 	array('i-3A38061E', 'Image 2', 'c1.medium'),
-	array('i-46190768', 'Image 3', 'c1.xlarge')
+	array('i-46190768', 'Image 3', 'c1.xlarge', array(2))
 );
 
 $instances = array();

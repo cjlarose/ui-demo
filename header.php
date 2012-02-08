@@ -40,6 +40,7 @@ $links = array(
 //	'Draggable' => 'draggable.php',
 	'VM Terminator' => 'droppable.php',
 	'Volume Management' => 'volumes.php',
+	'Volume Management 2' => 'volumes2.php',
 	'New Instance' => 'new_instance.php',
 	'Instances' => 'instances.php',
 	'Vertical Tabs' => 'vtabs.php'
