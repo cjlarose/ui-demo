@@ -44,7 +44,7 @@ $links = array(
 	'New Instance' => 'new_instance.php',
 	'Instances' => 'instances.php',
 	'Vertical Tabs' => 'vtabs.php',
-	'Sliding Tabs' => 'stabs.php'
+	'Sliding Tabs' => 'sliding.php'
 );
 #var_dump($_SERVER['PHP_SELF']);
 foreach ($links as $content => $location) {
