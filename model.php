@@ -35,24 +35,38 @@ abstract class Model {
 
 class ResultSet {
 	
-	private $result;
+	private $recource;
 	public $length; 
+	public $results;
 
-	public function __construct($result) {
-		$this->result = $result;	
-		$this->length = mysql_num_rows($result);
+	public function __construct($resource) {
+		$this->resource = $resource;	
+		$this->length = mysql_num_rows($resource);
+
+		$this->results = array();
+		while ($row = mysql_fetch_assoc($this->resource)) {
+			$this->results[] = $row;
+		}
 	}
 
 	public function to_table() {
-
+//echo "<pre>";		var_dump($this->results); echo "</pre>";
+		$table_headers = array_keys($this->results[0]);
+		echo "<table><thead><tr>";
+		foreach ($table_headers as $header)
+			echo "<td>{$header}</td>";
+		echo "</tr></thead><tbody>";
+		foreach ($this->results as $result) {
+			echo "<tr>";
+			foreach ($result as $value)
+				echo "<td>" . (is_null($value) ? "<em>NULL</em>" : $value) .  "</td>";
+			echo "</tr>";
+		}
+		echo "<tbody></table>";
 	}
 
 	public function to_json() {
-		$result_array = array();
-		while ($row = mysql_fetch_assoc($this->result)) {
-			$result_array[] = $row;
-		}
-		echo json_encode($result_array);
+		echo json_encode($this->results);
 	}
 
 }
@@ -65,6 +79,10 @@ class Image  extends Model {
 	}
 }
 
+class Volume extends Model {
+	public static $table_name = 'volumes';
+}
 //$model = new Model();
-//$results = Image::get_all();
-//$results->to_json();
+$results = Volume::get_all();
+$results->to_json();
+$results->to_table();
