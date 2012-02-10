@@ -9,15 +9,13 @@ abstract class Model {
 	public static $connection;
 
 	public static function init() {
-		self::$connection = mysql_connect(self::host, self::user, self::pass)
-			or die ('Could not connect: ' . mysql_error());
-		mysql_select_db(self::db) or die('Could not select database');
+		self::$connection = new PDO("mysql:host=" . self::host . ";dbname=" . self::db, self::user, self::pass);
 	}
 
 	public static function query($query) {
 		if (!self::$connection) 
 			self::init();
-		$result = mysql_query($query) or die('Query failed: ' . mysql_error());
+		$result = self::$connection->query($query); 
 		return new ResultSet($result);
 	}
 
@@ -41,11 +39,28 @@ class ResultSet {
 
 	public function __construct($resource) {
 		$this->resource = $resource;	
-		$this->length = mysql_num_rows($resource);
-
+		//$this->length = mysql_num_rows($resource);
+		$this->resource->setFetchMode(PDO::FETCH_OBJ);
 		$this->results = array();
-		while ($row = mysql_fetch_object($this->resource)) {
-			$this->results[] = $row;
+		while ($row = $resource->fetch()) {
+			//$this->results[] = $row;
+			$result = new stdClass();
+			$i = 0;
+			foreach ($row as $key => $value) {
+				$meta = $this->resource->getColumnMeta($i);
+				//var_dump($meta);
+				switch ($meta['native_type']) {
+					case "LONG":
+						$result->$key = $value * 1;
+						break;
+					case "DATETIME":
+						$result->$key = new DateTime($value);
+					default:
+						$result->$key = $value;
+				}
+				$i++;
+			}
+			$this->results[] = $result;
 		}
 	}
 
@@ -95,5 +110,8 @@ class Volume extends Model {
 	}
 }
 
+header('Cache-Control: no-cache, must-revalidate');
+header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+header('Content-type: application/json');
 $results = Instance::get_all_with_volumes();
 $results->to_json();
