@@ -110,8 +110,8 @@ class Volume extends Model {
 	}
 }
 
-header('Cache-Control: no-cache, must-revalidate');
-header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
-header('Content-type: application/json');
-$results = Instance::get_all_with_volumes();
-$results->to_json();
+//header('Cache-Control: no-cache, must-revalidate');
+//header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+//header('Content-type: application/json');
+//$results = Instance::get_all_with_volumes();
+//$results->to_json();
