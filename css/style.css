@@ -208,3 +208,11 @@ li.volume {
 	top: 10px;
 	right: 10px;
 }
+#view-instance .volumes-tab > div > ul{
+	margin: 0;	
+	height: 450px;
+	overflow-y: auto;
+}
+body > .volume {
+	width: 420px;
+}

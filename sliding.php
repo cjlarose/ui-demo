@@ -16,23 +16,41 @@ $.fn.slide = function(slide) {
 	if (slide == undefined) 
 		console.log(this);
 	else {
-	//	$(this).scrollLeft($(this).width() * slide);
 		$(this).animate({
 			scrollLeft: $(this).width() * slide
 		}, 'slow');
 	}
 };
 
+$.fn.attachedVolume = function (e) {
+	$(this)	
+		.append('<a class="close">&times;</a>')
+		.find('a.close')
+		.click(function(e) {
+			e.preventDefault();
+			$('<li></li>')
+				.html($(this).parent().html())
+				.appendTo($(this).parent().parent().parent().next().find('.unattached-volumes-list'))
+				.addClass('volume unattached')
+				.draggable({revert: 'invalid'})
+				.find('a.close')
+				.remove();
+			$(this).parent().remove();
+			return false;
+		});
+}
+
 $(function() {
 	$('#slider-container').slide();
 	$('#vols-instances-list > li').click(function() {
-		console.log($(this).attr('data-instance'));
 		offset = $('#instance-' + $(this).attr('data-instance')).position().top;
 		$('#view-instance').scrollTop(offset - $('#view-instance > div:eq(0)').position().top);
-	//	$('#view-instance').scrollTop();
-			//$('view_instance');
 		$('#slider-container').slide(1);
 	});
+	$('.attached-volumes-list .volume').attachedVolume();
+	$('.unattached-volumes-list .volume')
+		.addClass('unattached')
+		.draggable({revert: 'invalid', appendTo: 'body', helper: 'clone'});
 });
 </script>
 
@@ -68,7 +86,7 @@ foreach ($instances as $instance) {
 				
 				$attached_volumes_list_content = "";
 				foreach ($instance->Volume as $volume)
-					$attached_volumes_list_content .= "<li class=\"volume\"><h3>{$volume->name}</h3><p>{$volume->description}</p></li>";
+					$attached_volumes_list_content .= "<li class=\"attached volume\"><h3>{$volume->name}</h3><p>{$volume->description}</p></li>";
 ?>
 				<div class="tabbable">
 					<ul class="nav nav-tabs">
@@ -80,7 +98,7 @@ foreach ($instances as $instance) {
 							<div class="span7"><?php echo $meta_content; ?></div>
 							<div class="span4 space-graph"></div>
 						</div>
-						<div class="tab-pane row" id="<?php echo $instance->id; ?>-volumes">
+						<div class="tab-pane row volumes-tab" id="<?php echo $instance->id; ?>-volumes">
 							<div class="attached-volumes span6">
 								<h3>Attached Volumes</h3>
 								<ul class="attached-volumes-list"><?php echo $attached_volumes_list_content; ?></ul>	
