@@ -151,6 +151,13 @@ li.volume {
 	margin: 0 .5em;
 	width: 5em;
 }
+#instance-size-slider {
+	width: 500px;
+}
+#description {
+	width: 490px;
+	height: 6em;
+}
 
 /* Page: Instances */
 #new-instance-link {

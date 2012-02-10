@@ -31,16 +31,17 @@ function updateSizeDisplay(i) {
 
 $(function() {
 	updateSizeDisplay(0);
-	$('#instance-size-slider').slider({
-		range: 'min',
-		value: 0,
-		min: 0,
-		max: 4,
-		step: 1,
-		slide: function(event, ui) {
-			updateSizeDisplay(ui.value);	
-		}
-	});
+	$('#instance-size-slider')
+		.slider({
+			range: 'min',
+			value: 0,
+			min: 0,
+			max: 4,
+			step: 1,
+			slide: function(event, ui) {
+				updateSizeDisplay(ui.value);	
+			}
+		});
 });
 </script>
 
