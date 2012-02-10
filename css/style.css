@@ -84,7 +84,7 @@ pre.prettyprint {
 #vols-list, .attached-volumes-list {
 	margin-left: 0;
 }
-#vols-list li, .attached-volumes-list li {
+li.volume {
 	background: #fc0;
 	padding: 10px;
 	margin: 10px;
@@ -193,7 +193,7 @@ pre.prettyprint {
 	float: left;
 	width: 10em;
 }
-#view-instance > div > div {
+#view-instance > div {
 	position: relative;
 }
 .terminate-instance-button {

@@ -2,6 +2,13 @@
 include 'model.php';
 $instances_set = Instance::get_all_with_volumes();
 $instances = $instances_set->results;
+
+$unattached_volumes_set = Volume::get_unattached();
+$unattached_volumes = $unattached_volumes_set->results;
+
+$unattached_volumes_list_content = "";
+foreach ($unattached_volumes as $volume)
+	$unattached_volumes_list_content .= "<li class=\"volume\"><h3>{$volume->name}</h3><p>{$volume->description}</p></li>"; 
 ?>
 <?php include 'header.php'; ?>
 <script type="text/javascript">
@@ -49,41 +56,42 @@ foreach ($instances as $instance) {
 		</div>
 		<div id="view-instance">
 <?php foreach($instances as $instance): ?>
-			<div id="instance-<?php echo $instance->id; ?>" class="row">
-				<div class="span7">
-					<h2><?php echo $instance->name; ?></h2>
-					<p><?php echo $instance->description; ?></p>
-					<a class="btn terminate-instance-button">Terminate Instance</a>	
+			<div id="instance-<?php echo $instance->id; ?>">
+				<h2><?php echo $instance->name; ?></h2>
+				<p><?php echo $instance->description; ?></p>
+				<a class="btn terminate-instance-button">Terminate Instance</a>	
 <?php
-					$meta_content = "<dl>";
-					foreach ($instance as $key => $value) 
-						$meta_content .= "<dt>{$key}</dt><dd>{$value}</dd>";
-					$meta_content .= "</dl>";
-					
-					$attached_volumes_list_content = "";
-					foreach ($instance->Volume as $volume)
-						$attached_volumes_list_content .= "<li><h3>{$volume->name}</h3><p>{$volume->description}</p></li>";
-
-	echo "<div class=\"tabbable\">
-  <ul class=\"nav nav-tabs\">
-    <li class=\"active\"><a href=\"#{$instance->id}-meta\" data-toggle=\"tab\">Instance meta</a></li>
-    <li><a href=\"#{$instance->id}-volumes\" data-toggle=\"tab\">Attached Volumes</a></li>
-  </ul>
-  <div class=\"tab-content\">
-    <div class=\"tab-pane active instance-meta\" id=\"{$instance->id}-meta\">
-{$meta_content}
-    </div>
-    <div class=\"tab-pane\" id=\"{$instance->id}-volumes\">
-		<ul class=\"attached-volumes-list\">{$attached_volumes_list_content}</ul>	
-    </div>
-  </div>
-</div>		
-			</li>\n";
+				$meta_content = "<dl>";
+				foreach ($instance as $key => $value) 
+					$meta_content .= "<dt>{$key}</dt><dd>{$value}</dd>";
+				$meta_content .= "</dl>";
+				
+				$attached_volumes_list_content = "";
+				foreach ($instance->Volume as $volume)
+					$attached_volumes_list_content .= "<li class=\"volume\"><h3>{$volume->name}</h3><p>{$volume->description}</p></li>";
 ?>
-				</div>
-				<div class="span4">
-					hello sidebar
-				</div>
+				<div class="tabbable">
+					<ul class="nav nav-tabs">
+						<li class="active"><a href="#<?php echo $instance->id; ?>-meta" data-toggle="tab">Instance meta</a></li>
+						<li><a href="#<?php echo $instance->id; ?>-volumes" data-toggle="tab">Volume Management</a></li>
+					</ul>
+					<div class="tab-content">
+						<div class="tab-pane active instance-meta row" id="<?php echo $instance->id; ?>-meta">
+							<div class="span7"><?php echo $meta_content; ?></div>
+							<div class="span4 space-graph"></div>
+						</div>
+						<div class="tab-pane row" id="<?php echo $instance->id; ?>-volumes">
+							<div class="attached-volumes span6">
+								<h3>Attached Volumes</h3>
+								<ul class="attached-volumes-list"><?php echo $attached_volumes_list_content; ?></ul>	
+							</div>
+							<div class="unattached-volumes span6">
+								<h3>Available Volumes</h3>
+								<ul class="unattached-volumes-list"><?php echo $unattached_volumes_list_content; ?></ul>
+							</div>
+						</div>
+					</div>
+				</div>		
 			</div>
 <?php endforeach; ?>
 		</div>
@@ -138,7 +146,7 @@ foreach ($volumes as $volume) {
 	};
 
         // Instantiate and draw our chart, passing in some options.
-	$('#view-instance > div > div.span4').each(function(i, e) {
+	$('#view-instance .space-graph').each(function(i, e) {
 		console.log(e, i);
 		var chart = new google.visualization.PieChart(e);
 		chart.draw(data, options);

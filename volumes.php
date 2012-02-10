@@ -34,7 +34,7 @@ $(this)
 					$('<li></li>')
 						.html($(this).parent().html())
 						.appendTo('#vols-list')
-						.addClass('unattached')
+						.addClass('volume unattached')
 						.draggable({revert: 'invalid'})
 						.find('a.close')
 						.remove();
@@ -44,7 +44,7 @@ $(this)
 }
 $(function() {
 	$('#vols-list li')
-		.addClass('unattached')
+		.addClass('volume unattached')
 		.draggable({revert: 'invalid'});
 	$('#vols-instances-list li').droppable({
 		hoverClass: 'droppable-highlight',
@@ -52,6 +52,7 @@ $(function() {
 		drop: function(event, ui) {
 			$("<li></li>")
 				.html(ui.draggable.html())
+				.addClass('volume')
 				.appendTo($(this).find('ul'))
 				.attachedVolume();
 			$(ui.draggable).remove();
@@ -69,7 +70,7 @@ $(function() {
 		<ul id="vols-list">
 <?php
 foreach ($volumes as $volume) {
-	echo "\t\t\t<li><h3>{$volume->name} ({$volume->size} GB)</h3><p>{$volume->description}</p></li>\n";	
+	echo "\t\t\t<li class=\"volume\"><h3>{$volume->name} ({$volume->size} GB)</h3><p>{$volume->description}</p></li>\n";	
 }
 ?>
 		</ul>
@@ -81,7 +82,7 @@ foreach ($volumes as $volume) {
 foreach ($instances as $instance) {
 	$attached_volumes_list_content = "";
 	foreach ($instance->Volume as $volume)
-		$attached_volumes_list_content .= "<li><h3>{$volume->name}</h3><p>{$volume->description}</p></li>";
+		$attached_volumes_list_content .= "<li class=\"volume\"><h3>{$volume->name}</h3><p>{$volume->description}</p></li>";
 	echo "\t\t\t<li>
 				<h3>{$instance->name} ({$instance->id})</h3>
 				<p>{$instance->description}</p>
