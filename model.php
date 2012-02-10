@@ -44,14 +44,14 @@ class ResultSet {
 		$this->length = mysql_num_rows($resource);
 
 		$this->results = array();
-		while ($row = mysql_fetch_assoc($this->resource)) {
+		while ($row = mysql_fetch_object($this->resource)) {
 			$this->results[] = $row;
 		}
 	}
 
 	public function to_table() {
 //echo "<pre>";		var_dump($this->results); echo "</pre>";
-		$table_headers = array_keys($this->results[0]);
+		$table_headers = array_keys(get_object_vars($this->results[0]));
 		echo "<table><thead><tr>";
 		foreach ($table_headers as $header)
 			echo "<td>{$header}</td>";
@@ -71,18 +71,29 @@ class ResultSet {
 
 }
 
-class Image  extends Model {
+class Instance extends Model {
 	public static $table_name = 'instances';	
 	
-	public static function get_all_images() {
-		return self::get_all();
+	public static function get_all_with_volumes() {
+		$instances = self::get_all();
+		//$instances->to_json();
+		foreach ($instances->results as $instance) {
+			$attached_volumes = Volume::get_all_by_parent($instance->id);
+			//var_dump($instance);
+			$instance->Volume = $attached_volumes->results;
+		}
+		return $instances;
 	}
 }
 
 class Volume extends Model {
 	public static $table_name = 'volumes';
+
+	public static function get_all_by_parent($instance_id) {
+		$query = "SELECT * FROM volumes where instance_id = '{$instance_id}'";
+		return self::query($query);
+	}
 }
-//$model = new Model();
-$results = Volume::get_all();
+
+$results = Instance::get_all_with_volumes();
 $results->to_json();
-$results->to_table();
