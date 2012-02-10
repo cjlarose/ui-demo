@@ -22,23 +22,30 @@ $.fn.slide = function(slide) {
 	}
 };
 
-$.fn.attachedVolume = function (e) {
-	$(this)	
-		.append('<a class="close">&times;</a>')
+moveVolume = function(element) {
+	attached = $(element).hasClass('attached') || $(element).hasClass('to-be-attached');
+	
+	divParent = $(element).parent().parent().parent();
+	destination = attached ? divParent.find('.unattached-volumes-list') : divParent.find('.attached-volumes-list');
+
+	newClass = attached == false 
+		? (element.data('currentlyAttached') ? 'attached' : 'to-be-attached') 
+		: (element.data('currentlyAttached') ? 'to-be-unattached' : 'unattached');
+
+	$('<li></li>')
+		.data('currentlyAttached', element.data('currentlyAttached'))
+		.html($(element).html())
+		.appendTo(destination)
+		.addClass('volume ' + newClass)
+		.draggable({
+			revert: 'invalid',
+			appendTo: 'body',
+			helper: 'clone'
+		})
 		.find('a.close')
-		.click(function(e) {
-			e.preventDefault();
-			$('<li></li>')
-				.html($(this).parent().html())
-				.appendTo($(this).parent().parent().parent().next().find('.unattached-volumes-list'))
-				.addClass('volume unattached')
-				.draggable({revert: 'invalid'})
-				.find('a.close')
-				.remove();
-			$(this).parent().remove();
-			return false;
-		});
-}
+		.remove();
+	$(element).remove();
+};
 
 $(function() {
 	$('#slider-container').slide();
@@ -47,10 +54,32 @@ $(function() {
 		$('#view-instance').scrollTop(offset - $('#view-instance > div:eq(0)').position().top);
 		$('#slider-container').slide(1);
 	});
-	$('.attached-volumes-list .volume').attachedVolume();
+
+	$('.attached-volumes-list .volume')
+		.data('currentlyAttached', true)
+		.addClass('attached')
+		.draggable({revert: 'invalid', appendTo: 'body', helper: 'clone'})
 	$('.unattached-volumes-list .volume')
+		.data('currentlyAttached', false)
 		.addClass('unattached')
 		.draggable({revert: 'invalid', appendTo: 'body', helper: 'clone'});
+
+	$('.attached-volumes-list')
+		.droppable({
+			hoverClass: 'droppable-highlight',
+			accept: '.unattached, .to-be-unattached',
+			drop: function(event, ui) {
+				moveVolume(ui.draggable);
+			}
+		});
+	$('.unattached-volumes-list')
+		.droppable({
+			accecpt: '.attached',
+			hoverClass: 'droppable-highlight',
+			drop: function (event, ui) {
+				moveVolume(ui.draggable);
+			}
+		});
 });
 </script>
 
