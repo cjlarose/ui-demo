@@ -1,17 +1,7 @@
 <?php
-$volume_data = array(
-	array('Volume 1', 'This volume does all kinds of things', '10'),
-	array('Cool Volume', 'This volume does super super cool things, I promise!', '12'),
-	array('Super super cool volume', 'This volume does cooler things than both volume 1 and volume 2 combined', '15')
-);
-$volumes = array();
-foreach ($volume_data as $volume_datum) {
-	$volumes[] = (object) array(
-		'name' => $volume_datum[0],
-		'description' => $volume_datum[1],
-		'size' => $volume_datum[2]
-	);	
-}
+include 'model.php';
+$volumes_result = Volume::get_unattached();
+$volumes = $volumes_result->results;
 
 $instance_data = array(
 	array('i-46190768', 'Image 1', 'm1.small', array(1)),
@@ -28,21 +18,15 @@ foreach ($instance_data as $instance_datum) {
 		'size' => $instance_datum[2]
 	);
 }
+
+$instance_result = Instance::get_all_with_volumes();
+$instances = $instance_result->results;
 ?>
 <?php include 'header.php'; ?>
 
 <script type="text/javascript">
-$(function() {
-	$('#vols-list li')
-		.addClass('unattached')
-		.draggable({revert: 'invalid'});
-	$('#vols-instances-list li').droppable({
-		hoverClass: 'droppable-highlight',
-		accept: '.unattached',
-		drop: function(event, ui) {
-			$("<li></li>")
-				.html(ui.draggable.html())
-				.appendTo($(this).find('ul'))
+$.fn.attachedVolume = function (e) {
+$(this)	
 				.append('<a class="close">&times;</a>')
 				.find('a.close')
 				.click(function(e) {
@@ -57,9 +41,23 @@ $(function() {
 					$(this).parent().remove();
 					return false;
 				});
+}
+$(function() {
+	$('#vols-list li')
+		.addClass('unattached')
+		.draggable({revert: 'invalid'});
+	$('#vols-instances-list li').droppable({
+		hoverClass: 'droppable-highlight',
+		accept: '.unattached',
+		drop: function(event, ui) {
+			$("<li></li>")
+				.html(ui.draggable.html())
+				.appendTo($(this).find('ul'))
+				.attachedVolume();
 			$(ui.draggable).remove();
 		}
 	});
+	$('.attached-volumes-list > li').attachedVolume();
 });
 </script>
 
@@ -81,10 +79,13 @@ foreach ($volumes as $volume) {
 		<ul id="vols-instances-list">
 <?php
 foreach ($instances as $instance) {
+	$attached_volumes_list_content = "";
+	foreach ($instance->Volume as $volume)
+		$attached_volumes_list_content .= "<li><h3>{$volume->name}</h3><p>{$volume->description}</p></li>";
 	echo "\t\t\t<li>
 				<h3>{$instance->name} ({$instance->id})</h3>
 				<p>{$instance->description}</p>
-				<ul class=\"attached-volumes-list\"></ul>	
+				<ul class=\"attached-volumes-list\">{$attached_volumes_list_content}</ul>	
 			</li>\n";
 }
 ?>

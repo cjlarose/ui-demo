@@ -108,6 +108,11 @@ class Volume extends Model {
 		$query = "SELECT * FROM volumes where instance_id = '{$instance_id}'";
 		return self::query($query);
 	}
+	
+	public static function get_unattached() {
+		$query =  "SELECT * FROM volumes where instance_id is NULL";
+		return self::query($query);
+	}
 }
 
 //header('Cache-Control: no-cache, must-revalidate');
